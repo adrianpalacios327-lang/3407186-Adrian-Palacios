@@ -24,10 +24,12 @@
 //   Observatorio: SESSION_DURATION = 90, TICKET_PRICE = 18_000
 
 // const EXAMPLE_CONSTANT = 0; // TODO: Reemplazar con tus constantes
-const COURSE_PRICE = 15000;
-const LESSONS_PER_LEVEL = 20;
-const MAX_STUDENTS = 500;
-
+const PRECIO_CURSO = 45000;          // precio de un curso completo
+const LECCIONES_POR_NIVEL = 15;      // cuántas lecciones tiene cada nivel (A1, A2, etc.)
+const CUPOS_MAX_POR_GRUPO = 20;      // máximo de estudiantes por grupo virtual
+const DESCUENTO_POR_REFERIDO = 0.20; // 20% de descuento si traen amigo
+const ESTUDIANTES_ACTIVOS = 120;     // cuántos estudiantes hay ahora
+const IVA = 0.19;                    // impuesto en Colombia
 // ============================================
 // SECCIÓN 2: Operaciones aritméticas
 // ============================================
@@ -45,13 +47,20 @@ console.log("=== Operaciones básicas ===");
 // const remainingSeats = 45 - attendees;
 // console.log("Asientos disponibles:", remainingSeats);
 
-const studentsLearning = 80;
-const totalLessons = 200;
+const ingresosHoy = PRECIO_CURSO * 8;                  // vendiste 8 cursos hoy
+console.log("Ingresos de hoy:", ingresosHoy);
 
-const lessonsPerStudent = totalLessons / studentsLearning;
+const leccionesTotalesCompletadas = ESTUDIANTES_ACTIVOS * 5;  // cada estudiante completó 5 lecciones en promedio
+console.log("Lecciones totales completadas:", leccionesTotalesCompletadas);
 
-console.log("Promedio de lecciones por estudiante:", lessonsPerStudent);
+const promedioLeccionesPorEstudiante = leccionesTotalesCompletadas / ESTUDIANTES_ACTIVOS;
+console.log("Promedio lecciones por estudiante:", promedioLeccionesPorEstudiante);
 
+const cuposLibres = CUPOS_MAX_POR_GRUPO - 18;          // si hay 18 inscritos
+console.log("Cupos libres en el grupo:", cuposLibres);
+
+const precioConIVA = PRECIO_CURSO * (1 + IVA);
+console.log("Precio curso con IVA:", precioConIVA);
 // ============================================
 // SECCIÓN 3: Asignación compuesta
 // ============================================
@@ -68,9 +77,10 @@ console.log("=== Asignación compuesta ===");
 // console.log("Tras segundo item:", runningTotal);
 // runningTotal *= 0.90; // descuento del 10%
 // console.log("Con descuento:", runningTotal);
-
-console.log("");
-
+let leccionesCompletadasHoy = 0;
+leccionesCompletadasHoy += 45;   // 45 lecciones terminadas
+leccionesCompletadasHoy += 30;
+console.log("Lecciones completadas hoy:", leccionesCompletadasHoy);
 // ============================================
 // SECCIÓN 4: Comparación estricta
 // ============================================
@@ -86,7 +96,15 @@ console.log("=== Validaciones con === ===");
 // const hasFine = daysLate > 0;
 // console.log("¿Tiene multa?", hasFine);
 
-console.log("");
+const estudiantesEnGrupo = 19;
+const grupoLleno = estudiantesEnGrupo === CUPOS_MAX_POR_GRUPO;
+console.log("¿El grupo está lleno?", grupoLleno);
+
+const puedeInscribirse = estudiantesEnGrupo < CUPOS_MAX_POR_GRUPO;
+console.log("¿Puede inscribirse alguien más?", puedeInscribirse);
+
+const nivelAvanzado = 92 >= 85;   // si sacó 92 en el test
+console.log("¿Pasa a nivel avanzado?", nivelAvanzado);
 
 // ============================================
 // SECCIÓN 5: Operadores lógicos
@@ -102,7 +120,17 @@ console.log("=== Condiciones lógicas ===");
 // const qualifiesForDiscount = isMember && purchaseAmount >= 100_000;
 // console.log("¿Descuento aplicable?", qualifiesForDiscount);
 
-console.log("");
+const terminoNivel = true;
+const puntajeTest = 88;
+
+const pasaANivelSuperior = terminoNivel && puntajeTest >= 80;
+console.log("¿Pasa al siguiente nivel?", pasaANivelSuperior);
+
+const recibePremio = puntajeTest >= 95 || terminoNivel && puntajeTest >= 90;
+console.log("¿Recibe premio especial?", recibePremio);
+
+const necesitaRepasar = !terminoNivel;
+console.log("¿Necesita repasar el nivel?", necesitaRepasar);    
 
 // ============================================
 // SECCIÓN 6: Resumen final
@@ -112,4 +140,8 @@ console.log("=== Resumen ===");
 // TODO: Muestra un resumen con los valores más importantes
 // calculados en las secciones anteriores
 
-console.log("");
+console.log("=== Resumen de la app de idiomas ===");
+console.log("Precio curso:", PRECIO_CURSO);
+console.log("Ingresos hoy:", ingresosHoy);
+console.log("Cupos libres:", cuposLibres);
+console.log("Promedio lecciones:", promedioLeccionesPorEstudiante);

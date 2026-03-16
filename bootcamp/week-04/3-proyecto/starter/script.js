@@ -20,48 +20,43 @@
 // SECCIÓN 1: Datos del dominio
 // ============================================
 
-// TODO: Define el nombre de tu dominio
-const DOMAIN_NAME = "Mi Dominio";
+// Nombre general de tu proyecto/app
+const DOMAIN_NAME = "NEWLENGUASH";               // o "IdiomasYa", "AprendeFácil", lo que prefieras
 
-// TODO: Define el nombre de la entidad principal
-// Inclúyelo con espacios y mayúsculas/minúsculas
-// para poder aplicar transformaciones después
-const rawEntityName = "  nombre de la entidad  ";
+// Nombre de la entidad principal (ej: una lección, un curso, una palabra, un usuario)
+const rawEntityName = "   Lección de Saludos   ";   // deja espacios a propósito para usar trim después
 
-// TODO: Define una categoría o tipo (string)
-const entityCategory = "Categoría del elemento";
+// Categoría o tipo
+const entityCategory = "Nivel A1 - Principiante";
 
-// TODO: Define un código identificador (string)
-// Elige un prefijo coherente con tu dominio
-const entityCode = "COD-001";
+// Código identificador (con prefijo que tenga sentido)
+const entityCode = "LEC-A1-042";                    // LES = Lección, A1 = nivel, 042 = número
 
-// TODO: Define una descripción corta (string)
-// Debe contener varias palabras para usar includes/slice
-const entityDescription = "Descripción interesante de la entidad del dominio asignado.";
+// Descripción (larga, para poder usar includes y slice después)
+const entityDescription = "Lección introductoria con saludos básicos en inglés: hello, goodbye, please, thank you y good morning.";
 
-// TODO: Define un dato numérico relevante (number)
-const mainValue = 0;
+// Dato numérico relevante
+const mainValue = 12;                               // ej: 12 minutos de duración, o 12 palabras nuevas
 
-// TODO: Define un estado booleano
-const isActive = true;
-
+// Estado booleano
+const isActive = true;                              // la lección está disponible o no
 
 // ============================================
 // SECCIÓN 2: Transformaciones de string
 // ============================================
 
 // TODO: Limpia el nombre con trim()
-const entityName = rawEntityName.trim();
+const entityName = rawEntityName.trim(); // quita espacios → "Lección de Saludos"
 
 // TODO: Obtén el nombre en mayúsculas para el encabezado
-const entityNameUpper = entityName.toUpperCase();
+const entityNameUpper = entityName.toUpperCase();   // → "LECCIÓN DE SALUDOS"
 
 // TODO: Obtén el nombre en minúsculas para el código
-const entityNameLower = entityName.toLowerCase();
+const entityNameLower = entityName.toLowerCase();     // → "lección de saludos"
 
 // TODO: Extrae las primeras letras del código con slice()
 // para usarlas como prefijo de referencia
-const codePrefix = entityCode.slice(0, 3);
+const codePrefix = entityCode.slice(0, 3);    // → "LES"
 
 
 // ============================================
@@ -74,7 +69,7 @@ const hasValidPrefix = entityCode.startsWith(codePrefix);
 
 // TODO: Verifica si la descripción contiene una palabra clave
 // Usa includes() con una palabra importante de tu dominio
-const descriptionIsRelevant = entityDescription.includes("dominio");
+const descriptionIsRelevant = entityDescription.includes("ingles");
 
 // TODO: Verifica si el código termina con los dígitos
 // Usa endsWith() con algo coherente de tu dominio
@@ -94,15 +89,15 @@ const mainCard = `
 ${separator}
   ${DOMAIN_NAME.toUpperCase()} — FICHA DE ENTIDAD
 ${separator}
-Nombre:      ${entityNameUpper}
-Categoría:   ${entityCategory}
-Código:      ${entityCode}
-Prefijo:     ${codePrefix}
-Valor:       ${mainValue}
-Estado:      ${isActive ? "Activo" : "Inactivo"}
+Nombre:   LECCIÓN DE SALUDOS   ${entityNameUpper}
+Categoría:  Nivel A1 - Principiante ${entityCategory}
+Código:     LEC-A1-042 ${entityCode}
+Prefijo:    LEC  ${codePrefix}
+Valor:      12 ${mainValue}
+Estado:     Activo ${isActive ? "Activo" : "Inactivo"}
 
 ${subSeparator}
-Descripción:
+Descripción:Lección introductoria con saludos básicos en inglés: hello, goodbye, please, thank you y good morning.
 ${entityDescription}
 ${separator}
 `;
@@ -117,8 +112,8 @@ console.log(mainCard);
 console.log("--- Validaciones ---");
 // TODO: Muestra los resultados de las validaciones con template literals
 console.log(`¿Código empieza con '${codePrefix}'?: ${hasValidPrefix}`);
-console.log(`¿Descripción contiene 'dominio'?: ${descriptionIsRelevant}`);
-console.log(`¿Código termina con '001'?: ${hasValidSuffix}`);
+console.log(`¿Descripción contiene 'ingles'?: ${descriptionIsRelevant}`);
+console.log(`¿Código termina con '042'?: ${hasValidSuffix}`);
 console.log("");
 
 
@@ -130,6 +125,6 @@ console.log("--- Notificación ---");
 
 // TODO: Construye un mensaje corto de una línea
 // Usa template literal con el nombre limpio y el código
-const notification = `📢 Nuevo elemento disponible: ${entityName} (${entityCode})`;
+const notification = `📢 Nueva lección disponible:  ${entityName} (${entityCode})`;
 console.log(notification);
 console.log("");

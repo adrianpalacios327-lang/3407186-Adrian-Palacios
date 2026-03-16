@@ -1,6 +1,6 @@
 // ============================================
 // PROYECTO SEMANA 06: Reporte con Bucles
-// Dominio: [tu dominio asignado]
+// Dominio: [[aplicacion para el aprendizaje de idiomas]
 // ============================================
 //
 // INSTRUCCIONES:
