@@ -14,184 +14,138 @@
 
 // ============================================
 // SECCIÓN 1: Configuración y Constantes (Semanas 01–02)
+"use strict";
+
+// ============================================
+// 1. CONFIGURACIÓN
 // ============================================
 
-// TODO: Renombrar con el nombre de tu dominio (en inglés, UPPER_SNAKE_CASE)
-const DOMAIN_NAME = "Mi Aplicación";
-const VALUE_LABEL = "elementos";
-
-// TODO: Ajustar al límite razonable para tu dominio
-// Usa separadores numéricos (ES2021): 1_000, 10_000
+const DOMAIN_NAME = "APP_IDIOMAS";
+const VALUE_LABEL = "lecciones";
 const MAX_ITEMS = 1_000;
 
 // ============================================
-// SECCIÓN 2: Datos — Array Principal (Semanas 01–02)
+// 2. DATOS
 // ============================================
 
-// TODO: Definir el array con MÍNIMO 6 objetos
-// Requisitos:
-// - Mínimo 5 propiedades por objeto (tipos mixtos)
-// - Al menos 1 propiedad numérica (para calcular estadísticas)
-// - Al menos 1 propiedad booleana (para filtrar activos/inactivos)
-// - Al menos 1 propiedad OPCIONAL (no todos los objetos la tienen)
-//
-// Nota para el aprendiz — Adaptaciones por dominio:
-// - Biblioteca:    { id, title, author, year, pages, available, notes? }
-// - Farmacia:      { id, name, price, stock, laboratory, active, prescription? }
-// - Gimnasio:      { id, name, memberType, fee, joinDate, active, plan? }
-// - Restaurante:   { id, name, category, price, calories, available, allergens? }
-// - Banco:         { id, owner, type, balance, rate, active, creditLimit? }
-
 const items = [
-  // TODO: Reemplazar con objetos de tu dominio
-  {
-    id: 1,
-    name: "Elemento 1",
-    value: 100,
-    active: true,
-    category: "tipo-a",
-  },
-  {
-    id: 2,
-    name: "Elemento 2",
-    value: 200,
-    active: true,
-    category: "tipo-b",
-    notes: "Propiedad opcional de ejemplo",
-  },
-  {
-    id: 3,
-    name: "Elemento 3",
-    value: 150,
-    active: false,
-    category: "tipo-a",
-  },
-  // TODO: Agregar al menos 3 objetos más (mínimo 6 en total)
+  { id: 1, name: "Inglés Básico", value: 30, active: true, category: "gramática", level: "A1" },
+  { id: 2, name: "Vocabulario", value: 20, active: true, category: "vocabulario" },
+  { id: 3, name: "Conversación", value: 45, active: false, category: "conversación", level: "A2" },
+  { id: 4, name: "Pronunciación", value: 15, active: true, category: "pronunciación" },
+  { id: 5, name: "Listening", value: 35, active: true, category: "escucha", level: "A2" },
+  { id: 6, name: "Reading", value: 25, active: false, category: "lectura" }
 ];
 
 // ============================================
-// SECCIÓN 3: Funciones CRUD (Semanas 07–08)
+// 3. CRUD
 // ============================================
 
-/**
- * Agrega un nuevo elemento al array principal
- * @param {Object} item - El elemento a agregar
- */
 const addItem = (item) => {
-  // TODO: Implementar
-  // 1. Verificar que no supere MAX_ITEMS (usar items.length)
-  // 2. Agregar el item al array con .push()
-  // 3. Mostrar confirmación con console.log y template literal
+  if (items.length >= MAX_ITEMS) {
+    console.log("No se pueden agregar más elementos");
+    return;
+  }
+  items.push(item);
+  console.log(`Agregado: ${item.name}`);
 };
 
-/**
- * Busca un elemento por su id
- * @param {number} id - El id a buscar
- * @returns {Object|undefined} - El elemento encontrado o undefined
- */
 const findById = (id) => {
-  // TODO: Implementar usando .find()
-  return null;
+  return items.find(item => item.id === id);
 };
 
-/**
- * Retorna todos los elementos activos
- * @returns {Object[]}
- */
 const getActive = () => {
-  // TODO: Implementar usando .filter() con la propiedad booleana
-  return [];
+  return items.filter(item => item.active);
 };
 
-/**
- * Filtra elementos por el valor de un campo
- * @param {string} field - El nombre de la propiedad
- * @param {*} value - El valor a buscar
- * @returns {Object[]}
- */
 const filterByField = (field, value) => {
-  // TODO: Implementar usando .filter()
-  return [];
+  return items.filter(item => item[field] === value);
 };
 
 // ============================================
-// SECCIÓN 4: Funciones de Análisis (Semanas 08–09)
+// 4. ANÁLISIS
 // ============================================
 
-/**
- * Actualiza un elemento de forma inmutable usando spread
- * @param {number} id - Id del elemento a actualizar
- * @param {Object} changes - Objeto con los cambios a aplicar
- * @returns {Object[]} - Nuevo array con el elemento actualizado
- */
 const updateItem = (id, changes) => {
-  // TODO: Implementar
-  // 1. Usar .map() para crear un nuevo array
-  // 2. Para el item con el id buscado: retornar { ...item, ...changes }
-  // 3. Para los demás: retornar el item sin cambios
-  return items.map((item) => item); // reemplazar esta línea
+  return items.map(item =>
+    item.id === id ? { ...item, ...changes } : item
+  );
 };
 
-/**
- * Calcula estadísticas de un campo numérico
- * @param {string} field - El nombre de la propiedad numérica
- * @returns {{ min: number, max: number, avg: number, total: number }}
- */
 const calculateStats = (field) => {
-  // TODO: Implementar
-  // 1. Extraer los valores numéricos con Object.values o .map()
-  // 2. Calcular: min (Math.min), max (Math.max), avg (sum/length), total (sum)
-  // Pista: const values = items.map(i => i[field]);
-  return { min: 0, max: 0, avg: 0, total: 0 };
+  const values = items.map(i => i[field]);
+
+  let total = 0;
+  values.forEach(v => total += v);
+
+  return {
+    min: Math.min(...values),
+    max: Math.max(...values),
+    avg: total / values.length,
+    total: total
+  };
 };
 
 // ============================================
-// SECCIÓN 5: Funciones de Display (Semanas 04–07)
+// 5. DISPLAY
 // ============================================
 
-/**
- * Formatea un elemento para mostrar en consola (una línea)
- * @param {Object} item - El elemento a formatear
- * @returns {string}
- */
 const formatItem = (item) => {
-  // TODO: Implementar usando template literals
-  // 1. Usar .padEnd() o .padStart() para alinear columnas
-  // 2. Usar ?? y ?. para propiedades opcionales
-  // 3. Retornar string (NO hacer console.log aquí)
-  return `[${item.id}] ${item.name}`;
+  return `[${item.id}] ${item.name.padEnd(15)} | ${item.category} | ${item.value} min | ${item.level ?? "N/A"}`;
 };
 
-/**
- * Genera el reporte completo del dominio
- * Usa: Object.entries, forEach, filter, map, calculateStats
- */
 const buildReport = () => {
-  // TODO: Implementar
-  // 1. Cabecera: título del dominio con template literal
-  // 2. Listado completo usando formatItem + forEach
-  // 3. Sección de activos vs inactivos (getActive)
-  // 4. Estadísticas con calculateStats para la propiedad numérica
-  // 5. Propiedades del primer elemento con Object.entries
-  // 6. Pie de reporte con conteo total
-  console.log(`Reporte de ${DOMAIN_NAME}`);
+  console.log(`\nREPORTE - ${DOMAIN_NAME}`);
   console.log("=".repeat(40));
-  items.forEach((item) => console.log(formatItem(item)));
+
+  // Lista
+  items.forEach(item => console.log(formatItem(item)));
+
+  // Activos
+  const activos = getActive();
+  console.log(`\nActivos: ${activos.length} | Inactivos: ${items.length - activos.length}`);
+
+  // Estadísticas
+  const stats = calculateStats("value");
+  console.log(`Min: ${stats.min} Max: ${stats.max} Promedio: ${stats.avg.toFixed(1)}`);
+
+  // Propiedades del primero
+  console.log("\nPropiedades del primero:");
+  Object.entries(items[0]).forEach(([k, v]) => {
+    console.log(k + ": " + v);
+  });
+
+  console.log("\nTotal:", items.length);
 };
 
 // ============================================
-// SECCIÓN 6: Ejecución Principal
+// 6. EJECUCIÓN
 // ============================================
-//
-// TODO: Descomentar a medida que implementes cada función
-//
 
 console.log("=".repeat(40));
-console.log(`  ${DOMAIN_NAME.toUpperCase()}`);
+console.log(DOMAIN_NAME);
 console.log("=".repeat(40));
-console.log(`Total de ${VALUE_LABEL}: ${items.length} / ${MAX_ITEMS}`);
-console.log("");
 
+// Buscar
+console.log(findById(1));
+
+// Activos
+console.log(getActive());
+
+// Filtrar
+console.log(filterByField("category", "vocabulario"));
+
+// Update
+console.log(updateItem(1, { value: 50 }));
+
+// Stats
+console.log(calculateStats("value"));
+
+// Reporte
+buildReport();
+
+// Agregar
+addItem({ id: 7, name: "Writing", value: 40, active: true, category: "escritura" });
 // Paso 1: Buscar por id
 // const found = findById(1);
 // console.log("Encontrado id=1:", found?.name ?? "no encontrado");
