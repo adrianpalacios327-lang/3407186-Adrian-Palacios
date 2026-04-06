@@ -23,23 +23,19 @@
 //   Gimnasio    → { name: "Bicicleta", category: "cardio", value: 6.5 }
 //   Restaurante → { name: "Ensalada César", category: "entrada", value: 8.5 }
 
-// TODO: Define al menos 6 elementos de tu dominio
-// Reemplaza el nombre de la constante por algo representativo:
-// (ej: books, medicines, machines, dishes, patients...)
 const items = [
-  // TODO: Agrega tus elementos aquí
-  // { name: "nombre del elemento", category: "categoría", value: 0 }
+  { name: "Lección Básica Inglés", category: "gramática", value: 30 },
+  { name: "Vocabulario Comida", category: "vocabulario", value: 20 },
+  { name: "Conversación Nivel 1", category: "conversación", value: 45 },
+  { name: "Pronunciación Vocales", category: "pronunciación", value: 15 },
+  { name: "Vocabulario Viajes", category: "vocabulario", value: 25 },
+  { name: "Gramática Pasado", category: "gramática", value: 35 }
 ];
+// Categorías
+const categories = ["gramática", "vocabulario", "conversación", "pronunciación"];
 
-// TODO: Define las categorías relevantes para tu dominio
-// (ej: para Biblioteca sería ["ficción", "no-ficción", "ciencia"])
-const categories = [
-  // TODO: lista tus categorías
-];
-
-// TODO: Define un nombre descriptivo para el valor numérico
-// (ej: "páginas", "stock", "horas de uso", "precio", "duración")
-const valueLabel = "valor"; // ← cambiar
+// Tipo de valor
+const valueLabel = "minutos";
 
 // ============================================
 // SECCIÓN 2: Listado completo con for...of
@@ -86,62 +82,65 @@ console.log("");
 // ============================================
 console.log("=== ESTADÍSTICAS ===");
 
-// TODO: Inicializa el acumulador correctamente
-let totalValue = 0;
+console.log("\nESTADÍSTICAS");
+
+let total = 0;
 
 for (const item of items) {
-  // TODO: Acumula el valor de cada elemento
-  // totalValue += item.value;
+  total += item.value;
 }
 
-// TODO: Calcula el promedio
-const averageValue = items.length > 0 ? totalValue / items.length : 0;
+let promedio = total / items.length;
 
-console.log(`Total ${valueLabel}: ${totalValue}`);
-console.log(`Promedio ${valueLabel}: ${averageValue.toFixed(1)}`);
+console.log("Total: " + total);
+console.log("Promedio: " + promedio);
 
-console.log("");
 
 // ============================================
 // SECCIÓN 5: Máximo y mínimo
 // ============================================
 console.log("=== MÁXIMO Y MÍNIMO ===");
 
-// TODO: Variables para el máximo y mínimo
-// Pista: inicializa con items[0] si el array no está vacío
-let maxItem = items[0] ?? null;
-let minItem = items[0] ?? null;
+console.log("\nMÁXIMO Y MÍNIMO");
 
-if (items.length > 0) {
-  // TODO: Recorre con for...of y compara values para encontrar max y min
-  for (const item of items) {
-    // TODO: Comparar y actualizar maxItem y minItem
+let mayor = items[0];
+let menor = items[0];
+
+for (const item of items) {
+  if (item.value > mayor.value) {
+    mayor = item;
   }
 
-  // TODO: Imprime los resultados
-  console.log(`Mayor ${valueLabel}: ${maxItem?.name} (${maxItem?.value})`);
-  console.log(`Menor ${valueLabel}: ${minItem?.name} (${minItem?.value})`);
+  if (item.value < menor.value) {
+    menor = item;
+  }
 }
 
-console.log("");
+console.log("Mayor: " + mayor.name + " (" + mayor.value + ")");
+console.log("Menor: " + menor.name + " (" + menor.value + ")");
 
 // ============================================
 // SECCIÓN 6: Reporte numerado con for clásico
 // ============================================
-console.log("=== REPORTE DETALLADO ===");
 
-// TODO: Usa for clásico para generar el reporte
-// Indica si cada elemento está sobre o bajo el promedio
+console.log("\nREPORTE");
+
+// Usamos un for clásico porque necesitamos el índice (i)
 for (let i = 0; i < items.length; i++) {
-  const item = items[i];
 
-  // TODO: Determina si el item está sobre o bajo el promedio
-  // Pista: usa el operador ternario o if/else
-  const comparison = ""; // TODO: "sobre el promedio" o "bajo el promedio"
+  // Guardamos el elemento actual
+  let item = items[i];
 
-  // TODO: Imprime la línea del reporte
-  console.log(`${i + 1}. ${item.name} — ${comparison}`);
+  // Creamos una variable para guardar el resultado
+  let estado = "";
+
+  // Comparamos el valor del item con el promedio
+  if (item.value >= promedio) {
+    estado = "sobre el promedio";
+  } else {
+    estado = "bajo el promedio";
+  }
+
+  // Mostramos el resultado
+  console.log((i + 1) + ". " + item.name + " está " + estado);
 }
-
-console.log("");
-console.log("=== FIN DEL REPORTE ===");

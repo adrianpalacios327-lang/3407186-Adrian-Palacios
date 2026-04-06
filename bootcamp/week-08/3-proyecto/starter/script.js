@@ -32,139 +32,105 @@ const VALUE_LABEL = "elementos";     // TODO: Cambiar por unidad de tu dominio
 // Restaurante: { id, name, price, category, available: true }
 
 const items = [
-  // TODO: Agrega al menos 5 objetos de tu dominio
+  { id: 1, name: "Inglés Básico", category: "gramática", value: 30, active: true, level: "A1" },
+  { id: 2, name: "Vocabulario Comida", category: "vocabulario", value: 20, active: true, level: "A1" },
+  { id: 3, name: "Conversación", category: "conversación", value: 45, active: false, level: "A2" },
+  { id: 4, name: "Pronunciación", category: "pronunciación", value: 15, active: true, level: "A1" },
+  { id: 5, name: "Vocabulario Viajes", category: "vocabulario", value: 25, active: true, level: "A2" }
 ];
 
 // ============================================
 // 2. FUNCIONES DE GESTIÓN
 // ============================================
 
-/**
- * Agrega un nuevo elemento al inventario
- * @param {Object} newItem - Elemento a agregar
- */
+// Agregar elemento
 const addItem = (newItem) => {
-  // TODO: Usar push para agregar newItem al array items
-  // console.log(`Agregado: ${newItem.name}`);
+  items.push(newItem);
+  console.log("Agregado: " + newItem.name);
 };
 
-/**
- * Elimina el último elemento del inventario
- * @returns {Object} El elemento eliminado
- */
+// Eliminar último
 const removeLastItem = () => {
-  // TODO: Usar pop para eliminar y retornar el último elemento
-  // Guardar el resultado en una variable y mostrar el nombre
+  const eliminado = items.pop();
+  console.log("Eliminado: " + eliminado.name);
+  return eliminado;
 };
 
-/**
- * Agrega un elemento prioritario al inicio del inventario
- * @param {Object} priorityItem - Elemento a agregar con prioridad
- */
+// Agregar al inicio
 const addPriorityItem = (priorityItem) => {
-  // TODO: Usar unshift para agregar priorityItem al inicio de items
-  // console.log(`Elemento prioritario agregado: ${priorityItem.name}`);
+  items.unshift(priorityItem);
+  console.log("Prioritario: " + priorityItem.name);
 };
 
-/**
- * Elimina un elemento por su posición (índice)
- * @param {number} index - Posición del elemento a eliminar
- */
+// Eliminar por índice
 const removeByIndex = (index) => {
-  // TODO: Usar splice para eliminar 1 elemento en la posición index
-  // Mostrar el nombre del elemento eliminado
+  const eliminado = items.splice(index, 1);
+  console.log("Eliminado: " + eliminado[0].name);
 };
 
-/**
- * Obtiene todos los elementos activos/disponibles
- * @returns {Array} Array de elementos activos
- */
+// Filtrar activos
 const getActiveItems = () => {
-  // TODO: Usar filter para retornar solo los elementos con la propiedad
-  // booleana en true (ajusta el nombre de la propiedad a tu dominio)
-  return [];
+  return items.filter(item => item.active === true);
 };
 
-/**
- * Busca un elemento por su nombre
- * @param {string} name - Nombre a buscar
- * @returns {Object|undefined} El elemento encontrado o undefined
- */
+// Buscar por nombre
 const findByName = (name) => {
-  // TODO: Usar find para retornar el primer elemento cuyo name coincida
-  return null;
+  return items.find(item => item.name === name);
 };
 
-/**
- * Formatea un elemento para mostrar en el reporte
- * @param {Object} item - Elemento a formatear
- * @returns {string} Texto formateado
- */
+// Formatear
 const formatItem = (item) => {
-  // TODO: Retornar un string con la información relevante del elemento
-  // Usar template literals y mostrar las propiedades más importantes
-  // Ejemplo (adaptar al dominio):
-  // return `[${item.id}] ${item.name} — ...propiedades...`;
-  return `[${item.id}] ${item.name}`;
+  return `[${item.id}] ${item.name} - ${item.category} - ${item.value} min`;
 };
-
 // ============================================
 // 3. REPORTE
 // ============================================
 
-console.log(`\n${"=".repeat(50)}`);
-console.log(`📦 GESTIÓN DE ${DOMAIN_NAME.toUpperCase()}`);
-console.log(`${"=".repeat(50)}\n`);
+console.log("\n===== INVENTARIO =====\n");
 
-// Estado inicial
-console.log(`📋 Inventario inicial (${items.length} ${VALUE_LABEL}):`);
-// TODO: Usar forEach para mostrar cada elemento con formatItem
-items.forEach((item) => {
-  console.log(`  ${formatItem(item)}`);
+// Mostrar inicial
+console.log("Lista inicial:");
+items.forEach(item => {
+  console.log(formatItem(item));
 });
 
-console.log("\n--- Operaciones de mutación ---\n");
+// Operaciones
+console.log("\n--- Cambios ---\n");
 
-// TODO: Crear un nuevo elemento de tu dominio y usar addItem para agregarlo
-// Ejemplo: addItem({ id: 6, name: "Nuevo Elemento", ..., active: true });
+addItem({ id: 6, name: "Listening", category: "escucha", value: 35, active: true, level: "A2" });
 
-// TODO: Usar addPriorityItem para agregar un elemento prioritario
-// Ejemplo: addPriorityItem({ id: 0, name: "Elemento Prioritario", ..., active: true });
+addPriorityItem({ id: 0, name: "Introducción", category: "básico", value: 10, active: true, level: "A1" });
 
-// TODO: Usar removeByIndex para eliminar un elemento del medio
-// Ejemplo: removeByIndex(2);
+removeByIndex(2);
 
-// TODO: Usar removeLastItem para quitar el último elemento
+removeLastItem();
 
-console.log("\n--- Inventario después de mutaciones ---\n");
-// TODO: Mostrar el inventario actualizado con forEach + formatItem
-items.forEach((item) => {
-  console.log(`  ${formatItem(item)}`);
+// Mostrar actualizado
+console.log("\nLista actualizada:");
+items.forEach(item => {
+  console.log(formatItem(item));
 });
 
-console.log("\n--- Búsqueda y filtrado ---\n");
+// Búsqueda
+console.log("\nBúsqueda:");
+const encontrado = findByName("Pronunciación");
+console.log(encontrado);
 
-// TODO: Usar find para buscar un elemento específico por nombre
-// Mostrar el resultado
+// Activos
+const activos = getActiveItems();
+console.log("Activos:", activos.length);
 
-// TODO: Usar getActiveItems() y mostrar cuántos están activos
+// Map
+console.log("\nNombres:");
+const nombres = items.map(item => item.name);
+console.log(nombres);
 
-// TODO: Crear un snapshot inmutable con spread [...items]
-// y agregar un elemento extra sin modificar items
-console.log("\n--- Transformación con map ---\n");
+console.log("\nValores con +10:");
+const nuevosValores = items.map(item => item.value + 10);
+console.log(nuevosValores);
 
-// TODO: Usar map para crear un array de solo los nombres de los elementos
-// Mostrar los nombres
-
-// TODO: Usar map para crear un array con alguna propiedad numérica transformada
-// (ej: precios con descuento, cantidades en otra unidad, etc.)
-
-console.log("\n--- Resumen final ---\n");
-console.log(`Total en inventario: ${items.length} ${VALUE_LABEL}`);
-// TODO: mostrar total de activos vs total general
-const activeCount = getActiveItems().length;
-console.log(`Activos: ${activeCount} | Inactivos: ${items.length - activeCount}`);
-
-console.log(`\n${"=".repeat(50)}`);
-console.log("✅ Reporte completado");
-console.log(`${"=".repeat(50)}\n`);
+// Resumen
+console.log("\nResumen:");
+console.log("Total:", items.length);
+console.log("Activos:", activos.length);
+console.log("Inactivos:", items.length - activos.length);
